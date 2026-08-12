@@ -1,0 +1,165 @@
+generated: '2026-08-11'
+method: searched
+status: published
+source: https://davidprotein.com/agents.md
+note: >-
+  David serves three live Model Context Protocol endpoints from its own hostnames. All
+  three answered an anonymous tools/list on probe and returned real JSON Schema
+  inputSchemas, saved verbatim beside this manifest. The UCP commerce server and the
+  storefront server sit on davidprotein.com; the customer-account server sits on
+  account.davidprotein.com. tools/call is anonymous on the storefront server and
+  JWT-gated on the UCP commerce server.
+discovery:
+  robots_txt: https://davidprotein.com/robots.txt
+  agents_md: https://davidprotein.com/agents.md
+  ucp_profile: https://davidprotein.com/.well-known/ucp
+  agentic_sitemap: https://davidprotein.com/sitemap_agentic_discovery.xml
+servers:
+- name: david-protein-ucp-commerce
+  transport: http
+  protocol: MCP (JSON-RPC 2.0 over HTTP POST)
+  url: https://davidprotein.com/api/ucp/mcp
+  api_version_header: 'x-shopify-ucp-mcp-api-version: 2026-04-08'
+  server_info: {name: universal-commerce, version: 0.1.0, protocolVersion: '2024-11-05'}
+  capabilities: [tools, prompts, resources, logging]
+  authentication:
+    tools_list: anonymous
+    tools_call: >-
+      Signed JWT required. An anonymous tools/call returns JSON-RPC error -32000
+      "AuthenticationRequired" pointing at shopify.dev/docs/agents/get-started/authentication.
+  tool_count: 13
+  tools_file: david-protein-ucp-mcp-tools.json
+  x-evidence: {fetched: '2026-08-11', url: https://davidprotein.com/api/ucp/mcp, http_status: 200, method: 'tools/list'}
+  tools:
+    - name: get_checkout
+      description: >-
+        Returns details about the checkout, including line items, totals, and any applicable discounts or taxes.
+      required: [meta, id]
+    - name: create_checkout
+      description: >-
+        Creates a checkout. Returns checkout details, including line items, totals, and any applicable discounts or taxes.
+      required: [meta, checkout]
+    - name: update_checkout
+      description: >-
+        Updates a checkout. Returns checkout details, including line items, totals, and any applicable discounts or taxes.
+      required: [meta, checkout, id]
+    - name: complete_checkout
+      description: >-
+        Completes a checkout and returns the checkout result. Returns details about the completed checkout, including order ID, Thank You Page URL, or any errors encountered.
+      required: [meta, id, checkout]
+    - name: cancel_checkout
+      description: >-
+        Cancels a checkout.
+      required: [meta, id]
+    - name: get_cart
+      description: >-
+        Get the cart contents
+      required: [meta, id]
+    - name: create_cart
+      description: >-
+        Creates a new cart
+      required: [meta, cart]
+    - name: update_cart
+      description: >-
+        Perform updates to a cart.
+      required: [meta, cart, id]
+    - name: cancel_cart
+      description: >-
+        Cancels a cart.
+      required: [meta, id]
+    - name: get_order
+      description: >-
+        Get the details of an order
+      required: [meta, id]
+    - name: search_catalog
+      description: >-
+        Search for products from the online store, hosted on Shopify.
+      required: [meta, catalog]
+    - name: lookup_catalog
+      description: >-
+        Look up multiple products or variants by identifier.
+      required: [meta, catalog]
+    - name: get_product
+      description: >-
+        Retrieve complete product detail by identifier. Returns a singular product
+      required: [meta, catalog]
+- name: david-protein-storefront
+  transport: http
+  protocol: MCP (JSON-RPC 2.0 over HTTP POST)
+  url: https://davidprotein.com/api/mcp
+  api_version_header: 'x-shopify-mcp-api-version: unstable'
+  declared_in: 'window.Shopify.MCP.mcpEndpoint on the storefront HTML'
+  authentication:
+    tools_list: anonymous
+    tools_call: anonymous (search_catalog returned live product data on probe)
+  tool_count: 5
+  tools_file: david-protein-storefront-mcp-tools.json
+  x-evidence: {fetched: '2026-08-11', url: https://davidprotein.com/api/mcp, http_status: 200, method: 'tools/list'}
+  tools:
+    - name: search_catalog
+      description: >-
+        Search for products from the online store, hosted on Shopify.
+      required: []
+    - name: get_cart
+      description: >-
+        Get the cart including items, shipping options, discount info, and checkout url for a given cart id
+      required: [cart_id]
+    - name: update_cart
+      description: >-
+        Perform updates to a cart, including adding/removing/updating line items, buyer information, shipping details, discount codes, gift cards and notes in one consolidated call. Shipping options become available after adding items and delivery address. When creating a new cart, only addItems is required.
+      required: []
+    - name: search_shop_policies_and_faqs
+      description: >-
+        Used to get facts about the stores policies, products, or services.
+      required: [query]
+    - name: get_product_details
+      description: >-
+        Look up a product by ID. Pass the 'options' parameter to select a specific variant for the product card. Without options, the first available variant is returned.
+      required: [product_id]
+- name: david-protein-customer-account
+  transport: http
+  protocol: MCP (JSON-RPC 2.0 over HTTP POST)
+  url: https://account.davidprotein.com/customer/api/mcp
+  authentication:
+    tools_list: anonymous
+    tools_call: >-
+      OAuth 2.0 bearer token for a logged-in customer, from the authorization server
+      advertised at /.well-known/oauth-protected-resource. Scope
+      customer-account-mcp-api:full covers this surface.
+  tool_count: 4
+  tools_file: david-protein-customer-account-mcp-tools.json
+  x-evidence: {fetched: '2026-08-11', url: https://account.davidprotein.com/customer/api/mcp, http_status: 200, method: 'tools/list'}
+  tools:
+    - name: get_most_recent_order_status
+      description: >-
+        Gets the status of the customer's most recent order.
+      required: []
+    - name: get_order_status
+      description: >-
+        Fetches a specific order by order number for a logged-in customer and returns status details about the order.
+      required: [order_number]
+    - name: get_store_credit_balances
+      description: >-
+        Fetches the customer's store credit balances if they have any.
+      required: []
+    - name: request_return
+      description: >-
+        Allows a customer to request a return for an order.
+      required: [line_items]
+in_page_surface:
+  name: WebMCP
+  adapter: https://cdn.shopify.com/storefront/webmcp/webmcp-0.1.0.js
+  registration: document.modelContext.registerTool
+  tools:
+  - name: search_shop_policies_and_faqs
+    description: >-
+      Used to get facts about the store's policies, products, or services.
+    required: [query]
+  note: >-
+    The storefront page declares a browser-side tool set through the WebMCP adapter, so a
+    browsing agent gets a tool surface without calling the HTTP endpoint. Recorded in
+    components/david-protein-components.yml as well.
+crosswalk: >-
+  Not emitted. A tool crosswalk binds MCP tools to backing OpenAPI operationIds; David
+  publishes no OpenAPI, so there is nothing to bind against. The tools' real input
+  contracts are the JSON Schema inputSchemas saved in the three *-tools.json files.

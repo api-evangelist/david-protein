@@ -1,0 +1,76 @@
+generated: '2026-08-11'
+method: searched
+source: https://davidprotein.com/.well-known/
+host: https://davidprotein.com
+note: >-
+  Four of seven probed .well-known paths returned real documents. The UCP merchant
+  profile is the notable one: it is the discovery document for David's agent-commerce
+  surface and names the MCP endpoint, the supported protocol versions, the shopping
+  capabilities and the payment handlers. No security.txt, no api-catalog, no ai-plugin.json.
+documents:
+- path: /.well-known/ucp
+  status: 200
+  content_type: application/json
+  file: david-protein-ucp.json
+  spec: Universal Commerce Protocol 2026-04-08
+  note: >-
+    Merchant profile. services.dev.ucp.shopping declares an mcp transport endpoint and an
+    embedded transport; capabilities cover checkout, fulfillment, discount, cart, order,
+    catalog.search, catalog.lookup and the dev.shopify.catalog extension; payment handlers
+    are com.google.pay, dev.shopify.card and dev.shopify.shop_pay.
+- path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json
+  file: david-protein-openid-configuration.json
+  spec: OpenID Connect Discovery 1.0
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json
+  file: david-protein-oauth-authorization-server.json
+  spec: RFC 8414
+- path: /.well-known/oauth-protected-resource
+  status: 200
+  content_type: application/json
+  file: david-protein-oauth-protected-resource.json
+  spec: RFC 9728
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /.well-known/agent-card.json
+  status: 404
+- path: /.well-known/agent.json
+  status: 404
+other_hosts:
+- host: https://account.davidprotein.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+  - path: /authentication/.well-known/jwks.json
+    status: 200
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+adjacent_discovery:
+- path: /robots.txt
+  status: 200
+  note: >-
+    Names the agent surface directly - agents.md, the UCP discovery document and the
+    UCP/MCP endpoint - and states that checkout must not be completed by an agent
+    without contemporaneous human approval.
+- path: /agents.md
+  status: 200
+  file: ../skills/david-protein-agents.md
+- path: /llms.txt
+  status: 200
+  file: ../llms/david-protein-llms.txt
+- path: /sitemap_agentic_discovery.xml
+  status: 200
+  note: A dedicated agent sitemap whose only entry is /agents.md.
+x-evidence:
+  fetched: '2026-08-11'
+  probed_paths: 13
+  hits: 6

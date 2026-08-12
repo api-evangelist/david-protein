@@ -1,0 +1,37 @@
+generated: '2026-08-11'
+method: mixed
+note: >-
+  One provider-published skill saved verbatim, plus three generated operating skills. Every
+  operation named in the generated skills is a tool that appeared in a live tools/list
+  response on 2026-08-11 - none is invented.
+skills:
+- file: david-protein-agents.md
+  name: Agent Instructions - David Protein
+  method: searched
+  source: https://davidprotein.com/agents.md
+  http_status: 200
+  api: mcp/david-protein-mcp.yml
+  note: >-
+    David's own agent instruction document, saved verbatim. It is the canonical
+    agent-facing description of the store, the sole entry in
+    /sitemap_agentic_discovery.xml, and byte-identical in substance to /llms.txt. It
+    documents the UCP flow, the read-only browsing paths, the rate-limit posture and the
+    human-approval rule on payment.
+- file: david-protein-browse-catalog.md
+  name: Browse the David Protein catalog
+  method: generated
+  api: mcp/david-protein-mcp.yml
+  server: https://davidprotein.com/api/mcp
+  operations: [search_catalog, get_product_details, search_shop_policies_and_faqs]
+- file: david-protein-build-cart-and-checkout.md
+  name: Build a cart and take a David Protein order to checkout
+  method: generated
+  api: mcp/david-protein-mcp.yml
+  server: https://davidprotein.com/api/ucp/mcp
+  operations: [search_catalog, lookup_catalog, get_product, create_cart, update_cart, get_cart, cancel_cart, create_checkout, update_checkout, get_checkout, complete_checkout, cancel_checkout]
+- file: david-protein-order-status-and-returns.md
+  name: Check a David Protein order and request a return
+  method: generated
+  api: mcp/david-protein-mcp.yml
+  server: https://account.davidprotein.com/customer/api/mcp
+  operations: [get_most_recent_order_status, get_order_status, get_store_credit_balances, request_return]

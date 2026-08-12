@@ -1,0 +1,49 @@
+generated: '2026-08-11'
+method: searched
+source: https://davidprotein.com/ (storefront HTML)
+note: >-
+  The client-side surface David ships is agent-facing rather than developer-facing: a
+  browser-side MCP tool registration and Shopify's hosted checkout wallets. There is no
+  embeddable element library for third parties to consume.
+families:
+- name: WebMCP
+  kind: in-page agent tool surface
+  loader: https://cdn.shopify.com/storefront/webmcp/webmcp-0.1.0.js
+  version: 0.1.0
+  registration_api: document.modelContext.registerTool
+  gate: >-
+    The adapter script is only injected when document.modelContext (or
+    navigator.modelContext) exposes registerTool - i.e. when an MCP-aware browser or agent
+    is present. A plain browser never loads it.
+  declared_config:
+    'window.Shopify.MCP.enabled': true
+    'window.Shopify.MCP.shop': 1f74d5-3d.myshopify.com
+    'window.Shopify.MCP.mcpEndpoint': https://davidprotein.com/api/mcp
+  tools:
+  - name: search_shop_policies_and_faqs
+    required: [query]
+    optional: [context]
+    description: >-
+      Used to get facts about the store's policies, products, or services - return policy,
+      shipping policy, phone number, hours of operation.
+  note: >-
+    This is the one place in the surface where a David-specific tool schema is embedded
+    directly in the page rather than served from an endpoint.
+- name: Portable wallets / accelerated checkout
+  kind: hosted checkout component
+  loader: https://davidprotein.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js
+  version: null
+  note: >-
+    Loaded from a "latest" path with no version pin, so a consumer cannot tell what build
+    is running. Buyer-facing only; not an integration surface.
+- name: Shop skill
+  kind: cross-store agent skill (third party, recommended by David)
+  url: https://shop.app/SKILL.md
+  vendor: Shopify
+  note: >-
+    agents.md and robots.txt both push personal-shopping agents to install the Shop skill
+    and route purchases through Shop Pay rather than driving David's own storefront.
+x-evidence:
+  fetched: '2026-08-11'
+  url: https://davidprotein.com/
+  http_status: 200

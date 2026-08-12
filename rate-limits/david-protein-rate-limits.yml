@@ -1,0 +1,36 @@
+generated: '2026-08-11'
+method: searched
+source: https://davidprotein.com/agents.md
+limit_count: 0
+note: >-
+  David states that the MCP endpoint is rate limited but publishes no number, no window and
+  no scope. No RateLimit-* or X-RateLimit-* header appeared on any of the probe responses,
+  so an agent has no runtime budget signal at all - it can only discover the limit by
+  being refused.
+policy:
+  documented: true
+  quote: >-
+    "Respect rate limits. The MCP endpoint is rate-limited per IP. Back off on 429
+    responses."
+  scope: per-IP
+  window: not published
+  limit: not published
+  burst: not published
+  status_on_exhaustion: 429
+response_headers:
+  ratelimit_standard: none observed
+  x_ratelimit: none observed
+  retry_after: none observed
+  observed_headers:
+  - {name: shopify-complexity-score, example: '0'}
+  - {name: shopify-complexity-score-v2, example: '27'}
+  note: >-
+    The two shopify-complexity-score headers are the only cost signal returned. They are
+    undocumented on David's site and carry no budget, remaining count or reset time, so
+    they are not a usable rate-limit signal for an agent.
+limits: []
+x-evidence:
+  fetched: '2026-08-11'
+  urls:
+  - {url: https://davidprotein.com/agents.md, status: 200}
+  - {url: https://davidprotein.com/api/mcp, status: 200}

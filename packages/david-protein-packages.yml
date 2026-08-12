@@ -1,0 +1,42 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  npm, PyPI and the davidprotein.com storefront HTML
+note: >-
+  David publishes no first-party client library in any registry. The only versioned client
+  artifact in the surface is Shopify's WebMCP adapter, loaded by the storefront from a
+  pinned CDN URL - it is platform code, not a David SDK, so official is false and no SDKs
+  pointer is emitted. An agent integrating with David writes JSON-RPC by hand or uses a
+  generic MCP client.
+official_sdk_count: 0
+packages:
+- language: javascript
+  registry: cdn
+  name: webmcp
+  vendor: Shopify
+  official: false
+  url: https://cdn.shopify.com/storefront/webmcp/webmcp-0.1.0.js
+  version: 0.1.0
+  published: null
+  install: 'loaded automatically by the storefront page; no package manager entry'
+  http_status: 200
+  size_bytes: 62859
+  note: >-
+    Version is read from the pinned filename, which is the only currency signal available -
+    a CDN path has no metadata endpoint and Shopify publishes no @shopify/webmcp package on
+    npm (404). The 0.1.0 pin is worth noting on its own: the in-page agent tool surface of
+    this store rides on a component its own vendor numbers below 1.0.
+registries_checked:
+- {registry: npm, query: 'davidprotein, david-protein, @shopify/webmcp', result: 404, hits: 0}
+- {registry: pypi, query: davidprotein, result: 404, hits: 0}
+- {registry: github, query: 'org DavidProtein', result: 'org exists, 0 public repos', hits: 0}
+github_org:
+  url: https://github.com/DavidProtein
+  created: '2025-11-22'
+  public_repos: 0
+  note: >-
+    An org by that name exists and is empty - no name, no description, no linked website,
+    nothing published. First-party ownership is unconfirmed, so no GitHubOrganization
+    pointer is emitted.
+x-evidence:
+  fetched: '2026-08-11'

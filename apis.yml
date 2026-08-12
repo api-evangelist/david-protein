@@ -1,23 +1,189 @@
 aid: david-protein
 name: David Protein
-description: 'David Protein is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'David is a New York nutrition company founded in 2023 by RXBAR co-founder
+  Peter Rahal, selling high-protein bars (28g protein, 150 calories, 0g sugar), the
+  Bronze and Gold bar lines, and protein ice cream pints direct-to-consumer, through
+  wholesale, and in retail. David runs no developer program and publishes no OpenAPI,
+  but its Shopify-hosted storefront at davidprotein.com serves a complete agent-commerce
+  surface from its own hostnames: an agents.md / llms.txt instruction document, a Universal
+  Commerce Protocol (UCP) merchant profile at /.well-known/ucp, OAuth 2.0 and OpenID
+  Connect discovery documents, and three live Model Context Protocol servers covering
+  catalog search, product lookup, cart, checkout, shop policy Q&A, order status and
+  returns.'
+image: https://davidprotein.com/cdn/shop/files/Group_524_4.png?v=1776707158
 url: https://raw.githubusercontent.com/api-evangelist/david-protein/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-11'
 modified: '2026-08-11'
+x-enrichment:
+  date: '2026-08-11'
+  status: enriched
+  artifacts_added: 27
+  pass: local-v1
+x-coverage:
+  state: covered
+  checked: '2026-08-11'
 tags:
-- Company
-apis: []
+- Agents
+- MCP
+- Universal Commerce Protocol
+- Commerce
+- E-Commerce
+- Shopping
+- Catalog
+- Checkout
+- Nutrition
+- Food and Beverage
+- Consumer Packaged Goods
+- Shopify
+apis:
+- aid: david-protein-ucp-commerce-mcp
+  name: David Protein UCP Commerce MCP
+  description: 'The Universal Commerce Protocol commerce server David serves at davidprotein.com/api/ucp/mcp,
+    advertised in the store robots.txt and agents.md. Thirteen MCP tools cover catalog
+    search and lookup, product detail, cart create/get/update/cancel, and checkout
+    create/get/update/complete/cancel. tools/list is anonymous and returns full JSON
+    Schema inputSchemas; tools/call requires a signed JWT (AuthenticationRequired,
+    JSON-RPC -32000). complete_checkout accepts a meta.idempotency-key.'
+  humanURL: https://davidprotein.com/agents.md
+  baseURL: https://davidprotein.com/api/ucp/mcp
+  tags:
+  - MCP
+  - Universal Commerce Protocol
+  - Checkout
+  - Cart
+  - Catalog
+  properties:
+  - type: MCPServer
+    url: mcp/david-protein-mcp.yml
+  - type: Documentation
+    url: https://davidprotein.com/agents.md
+- aid: david-protein-storefront-mcp
+  name: David Protein Storefront MCP
+  description: 'The Shopify storefront MCP server David serves at davidprotein.com/api/mcp,
+    declared in the storefront page as window.Shopify.MCP.mcpEndpoint and mirrored
+    into the browser through the WebMCP adapter. Five tools: search_catalog, get_product_details,
+    get_cart, update_cart and search_shop_policies_and_faqs. Both tools/list and tools/call
+    answered anonymously on probe; responses declare the UCP catalog-search capability.'
+  humanURL: https://davidprotein.com/agents.md
+  baseURL: https://davidprotein.com/api/mcp
+  tags:
+  - MCP
+  - WebMCP
+  - Catalog
+  - Cart
+  properties:
+  - type: MCPServer
+    url: mcp/david-protein-mcp.yml
+- aid: david-protein-customer-account-mcp
+  name: David Protein Customer Account MCP
+  description: 'The customer-account MCP server David serves at account.davidprotein.com/customer/api/mcp.
+    Four tools: get_most_recent_order_status, get_order_status, get_store_credit_balances
+    and request_return. tools/list is anonymous; the tools operate on a logged-in customer
+    and require an OAuth 2.0 bearer token from the authorization server advertised
+    at davidprotein.com/.well-known/oauth-protected-resource.'
+  humanURL: https://davidprotein.com/agents.md
+  baseURL: https://account.davidprotein.com/customer/api/mcp
+  tags:
+  - MCP
+  - Orders
+  - Returns
+  - OAuth
+  properties:
+  - type: MCPServer
+    url: mcp/david-protein-mcp.yml
+  - type: Authentication
+    url: authentication/david-protein-authentication.yml
+- aid: david-protein-storefront-json
+  name: David Protein Storefront JSON
+  description: 'The unauthenticated read-only JSON surface David documents in agents.md
+    for agents that only need to browse: /products.json and /collections.json store-wide,
+    /products/{handle}.json per product, /collections/{handle}/products.json per collection,
+    and /search?q={query}&type=product. Thirty products were returned on probe. No
+    OpenAPI describes it; the contract is the agents.md endpoint list.'
+  humanURL: https://davidprotein.com/agents.md
+  baseURL: https://davidprotein.com
+  x-base-note: >-
+    repair-api-bases flags this baseURL as a marketing base because it is the site root.
+    It is correct as written and was left alone: David serves these JSON paths from the
+    storefront origin itself (/products.json returned 200 with 30 products on probe), so
+    the origin is the API host. There is no separate api.davidprotein.com.
+  tags:
+  - Catalog
+  - Products
+  - JSON
+  properties:
+  - type: Documentation
+    url: https://davidprotein.com/agents.md
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/david-protein-domain-security.yml
 - type: Website
+  url: https://davidprotein.com
+- type: Documentation
+  url: https://davidprotein.com/agents.md
+- type: GettingStarted
+  url: https://davidprotein.com/agents.md
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/david-protein-llms.txt
+- type: WellKnown
+  url: well-known/david-protein-well-known.yml
+- type: MCPServer
+  url: mcp/david-protein-mcp.yml
+- type: Authentication
+  url: authentication/david-protein-authentication.yml
+- type: OAuthScopes
+  url: scopes/david-protein-scopes.yml
+- type: Conventions
+  url: conventions/david-protein-conventions.yml
+- type: Idempotency
+  url: conventions/david-protein-conventions.yml
+- type: ErrorCatalog
+  url: errors/david-protein-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/david-protein-lifecycle.yml
+- type: Conformance
+  url: conformance/david-protein-conformance.yml
+- type: RateLimits
+  url: rate-limits/david-protein-rate-limits.yml
+- type: Plans
+  url: plans/david-protein-plans-pricing.yml
+- type: Packages
+  url: packages/david-protein-packages.yml
+- type: Components
+  url: components/david-protein-components.yml
+- type: DataModel
+  url: data-model/david-protein-data-model.yml
+- type: Support
+  url: https://davidprotein.com/pages/help-center
+- type: HelpCenter
+  url: https://davidprotein.com/pages/frequently-asked-questions
+- type: Blog
+  url: https://davidprotein.com/blogs/the-column
+- type: BlogRSS
+  url: https://davidprotein.com/blogs/the-column.atom
+- type: Pricing
+  url: https://davidprotein.com/collections/shop
+- type: SignUp
+  url: https://davidprotein.com/account/login
+- type: TermsOfService
+  url: https://davidprotein.com/policies/terms-of-service
+- type: PrivacyPolicy
+  url: https://davidprotein.com/policies/privacy-policy
+- type: RefundPolicy
+  url: https://davidprotein.com/policies/refund-policy
+- type: ShippingPolicy
+  url: https://davidprotein.com/policies/shipping-policy
+- type: Careers
+  url: https://davidprotein.com/pages/careers
+- type: Investors
   url: https://www.hiive.com/securities/david-protein-stock

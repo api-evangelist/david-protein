@@ -1,0 +1,30 @@
+generated: '2026-08-11'
+method: searched
+source: https://davidprotein.com/agents.md
+plan_count: 0
+note: >-
+  There are no API plans. David is a consumer packaged-goods company; the agent surface is
+  a storefront, not a product being sold to developers. Every MCP endpoint and every
+  read-only JSON path is free and unmetered, with no key, no tier and no signup for
+  access. The only prices on the site are retail product prices, which are catalogue data
+  rather than API pricing and are readable through the storefront JSON and the
+  search_catalog tool.
+plans: []
+commercial_model:
+  api_monetized: false
+  access: open
+  gating: >-
+    No developer account, no API key, no plan. The only credential in the surface is an
+    OAuth token for a buyer's own account, and a signed agent JWT for the UCP commerce
+    server's tools/call.
+  retail_pricing:
+    page: https://davidprotein.com/collections/shop
+    machine_readable: https://davidprotein.com/products.json
+    note: >-
+      30 products returned on probe, priced in the products.json feed and in
+      search_catalog results as integer minor units with an ISO 4217 currency code.
+x-evidence:
+  fetched: '2026-08-11'
+  urls:
+  - {url: https://davidprotein.com/collections/shop, status: 200}
+  - {url: https://davidprotein.com/products.json, status: 200}

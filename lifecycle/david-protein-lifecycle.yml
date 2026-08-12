@@ -1,0 +1,48 @@
+generated: '2026-08-11'
+method: probed
+source: https://davidprotein.com/agents.md
+note: >-
+  David publishes no versioning policy, no deprecation policy, no SLA and no status page
+  of its own. What versioning exists is carried in response headers and in the UCP
+  discovery document, and it is inconsistent between the two MCP endpoints.
+versioning:
+  scheme: date-versioned protocol, signalled in a response header
+  current: '2026-04-08'
+  supported:
+  - version: '2026-04-08'
+    label: latest stable
+    profile: https://1f74d5-3d.myshopify.com/.well-known/ucp/2026-04-08
+  - version: '2026-01-23'
+    profile: https://1f74d5-3d.myshopify.com/.well-known/ucp/2026-01-23
+  headers:
+  - {endpoint: https://davidprotein.com/api/ucp/mcp, header: x-shopify-ucp-mcp-api-version, value: '2026-04-08'}
+  - {endpoint: https://davidprotein.com/api/mcp, header: x-shopify-mcp-api-version, value: unstable}
+  mcp_protocol_version: '2024-11-05'
+  note: >-
+    The storefront MCP server self-reports api-version "unstable" while the UCP commerce
+    server pins 2026-04-08. An agent integrating against /api/mcp is building on a surface
+    the store itself labels unstable, and nothing on David's site says so.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No deprecation policy is published, and the older UCP version 2026-01-23 is listed as
+    supported with no stated end date. No Sunset or Deprecation header was observed.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_note: >-
+  No status.davidprotein.com and no status page linked from the store. Availability of the
+  agent endpoints is unobservable to an integrator.
+changelog: null
+changelog_note: >-
+  No dated changelog for the agent surface. The blog at /blogs/the-column is nutrition
+  editorial, not release notes.
+deprecated_operations: []
+x-evidence:
+  fetched: '2026-08-11'
+  urls:
+  - {url: https://davidprotein.com/.well-known/ucp, status: 200}
+  - {url: https://davidprotein.com/api/ucp/mcp, status: 200}
+  - {url: https://davidprotein.com/api/mcp, status: 200}

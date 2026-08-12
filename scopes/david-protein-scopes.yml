@@ -1,0 +1,51 @@
+generated: '2026-08-11'
+method: probed
+source: https://davidprotein.com/.well-known/openid-configuration
+note: >-
+  Probed from the live OpenID Connect / RFC 8414 discovery documents rather than derived
+  from an OpenAPI - David publishes no spec. Four scopes are advertised; two of them are
+  coarse ":full" grants, so an agent that needs order status alone cannot ask for less
+  than full customer-account access.
+schemes:
+- name: customer-account-oauth
+  source: well-known/david-protein-openid-configuration.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://account.davidprotein.com/authentication/oauth/authorize
+    tokenUrl: https://account.davidprotein.com/authentication/oauth/token
+  - flow: refreshToken
+    tokenUrl: https://account.davidprotein.com/authentication/oauth/token
+  - flow: 'urn:ietf:params:oauth:grant-type:jwt-bearer'
+    tokenUrl: https://account.davidprotein.com/authentication/oauth/token
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; returns an ID token.
+  flows: [authorizationCode]
+  sources: [well-known/david-protein-openid-configuration.json]
+- scope: email
+  description: Access to the customer's email address and email_verified claim.
+  flows: [authorizationCode]
+  sources: [well-known/david-protein-openid-configuration.json]
+- scope: 'customer-account-api:full'
+  description: Full access to the customer account API for the signed-in customer.
+  flows: [authorizationCode]
+  granularity: coarse
+  sources: [well-known/david-protein-openid-configuration.json]
+- scope: 'customer-account-mcp-api:full'
+  description: >-
+    Full access to the customer-account MCP server at
+    account.davidprotein.com/customer/api/mcp - order status, store credit balances and
+    return requests.
+  flows: [authorizationCode]
+  granularity: coarse
+  sources: [well-known/david-protein-openid-configuration.json]
+observed_in_the_wild:
+  note: >-
+    The storefront login redirect requests scope "openid email customer-account-api:full",
+    confirming the authorization-code flow is live.
+  url: https://davidprotein.com/account/login
+  status: 200
+x-evidence:
+  fetched: '2026-08-11'
+  url: https://davidprotein.com/.well-known/openid-configuration
+  http_status: 200

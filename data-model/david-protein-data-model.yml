@@ -1,0 +1,88 @@
+generated: '2026-08-11'
+method: derived
+source: >-
+  mcp/david-protein-ucp-mcp-tools.json, mcp/david-protein-storefront-mcp-tools.json,
+  mcp/david-protein-customer-account-mcp-tools.json
+note: >-
+  Derived from the JSON Schema inputSchemas of the 22 live MCP tools and from observed
+  response payloads - there is no OpenAPI to walk. Relationships are read from the
+  id-reference fields and nested objects the schemas actually declare.
+identifiers:
+  style: Shopify global ID (GID) URIs
+  examples:
+  - 'gid://shopify/Product/8653621264551'
+  - 'gid://Shopify/Order/1234567890'
+  buyer_facing:
+    order_number: 'human-readable order number, e.g. #MX1001'
+money:
+  shape: '{amount: integer minor units, currency: ISO 4217 code}'
+entities:
+- name: Product
+  source_tools: [search_catalog, lookup_catalog, get_product, get_product_details]
+  fields: [id, title, description.html, url, price_range, variants, availability]
+  relationships:
+  - {type: has_many, target: Variant, via: variants}
+- name: Variant
+  source_tools: [get_product, lookup_catalog]
+  fields: [id, selected_options, price, availability]
+  relationships:
+  - {type: belongs_to, target: Product, via: id}
+- name: Cart
+  source_tools: [create_cart, get_cart, update_cart, cancel_cart]
+  relationships:
+  - {type: has_many, target: LineItem, via: cart.line_items}
+  - {type: has_one, target: Checkout, via: create_checkout}
+- name: LineItem
+  source_tools: [create_cart, update_cart, request_return]
+  fields: [line_item_id, quantity]
+  relationships:
+  - {type: belongs_to, target: Variant, via: id}
+- name: Checkout
+  source_tools: [create_checkout, get_checkout, update_checkout, complete_checkout, cancel_checkout]
+  fields: [id, line_items, totals, discounts, taxes, fulfillment, payment]
+  relationships:
+  - {type: belongs_to, target: Cart, via: cart}
+  - {type: has_one, target: Order, via: complete_checkout}
+  - {type: has_many, target: Discount, via: discounts}
+  - {type: has_one, target: Fulfillment, via: fulfillment}
+- name: Order
+  source_tools: [get_order, get_order_status, get_most_recent_order_status, request_return]
+  fields: [order_id, order_number, status, thank_you_page_url]
+  relationships:
+  - {type: belongs_to, target: Checkout, via: complete_checkout}
+  - {type: has_many, target: Return, via: request_return}
+- name: Return
+  source_tools: [request_return]
+  fields: [order_id, order_number, line_items, reason]
+  relationships:
+  - {type: belongs_to, target: Order, via: order_id}
+  - {type: has_many, target: LineItem, via: line_items}
+- name: StoreCredit
+  source_tools: [get_store_credit_balances]
+  relationships:
+  - {type: belongs_to, target: Customer, via: authenticated session}
+- name: Customer
+  source_tools: [get_most_recent_order_status, get_order_status, get_store_credit_balances, request_return]
+  note: >-
+    Never addressed by id. The customer is whoever the OAuth bearer token represents; every
+    customer-account tool is implicitly scoped to the token holder.
+  relationships:
+  - {type: has_many, target: Order, via: authenticated session}
+- name: Discount
+  source_capability: dev.ucp.shopping.discount
+  source: well-known/david-protein-ucp.json
+- name: Fulfillment
+  source_capability: dev.ucp.shopping.fulfillment
+  source: well-known/david-protein-ucp.json
+  constraints:
+    allows_multi_destination_shipping: false
+    allows_method_combinations: [[shipping]]
+- name: AgentProfile
+  source_tools: all UCP commerce tools
+  fields: [meta.ucp-agent.profile]
+  note: >-
+    A first-class entity in this model even though it is not a store record - the calling
+    agent must present a fetchable profile URI or the call fails with -32001.
+x-evidence:
+  derived_from_tools: 22
+  fetched: '2026-08-11'

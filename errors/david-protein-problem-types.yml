@@ -1,0 +1,62 @@
+generated: '2026-08-11'
+method: probed
+source: live probes of https://davidprotein.com/api/ucp/mcp
+format: jsonrpc-2.0
+note: >-
+  Not RFC 9457. David serves no HTTP error envelope worth cataloguing - the MCP endpoints
+  answer HTTP 200 and carry the failure in a JSON-RPC error object. Every entry below was
+  observed on a real request; none is inferred. The transport-level status masking means an
+  agent that only checks HTTP status will read every one of these as success.
+envelope:
+  location: response body
+  shape: '{"jsonrpc":"2.0","id":<id>,"error":{"code":<int>,"message":<string>,"data":<string|object>}}'
+  http_status_on_error: 200
+problems:
+- code: -32600
+  message: Invalid Request
+  data: Invalid JSON in request body.
+  trigger: malformed JSON body
+  http_status: 200
+  remediation: Send a well-formed JSON-RPC 2.0 request object.
+  observed_on: https://davidprotein.com/api/ucp/mcp
+- code: -32000
+  message: AuthenticationRequired
+  data: >-
+    Unauthorized: A valid JWT is required to call <tool>. See
+    https://shopify.dev/docs/agents/get-started/authentication for instructions on
+    generating a token and authenticating your requests.
+  trigger: tools/call on the UCP commerce server without a signed JWT
+  http_status: 200
+  remediation: Obtain a signed agent JWT and present it on the call.
+  observed_on: https://davidprotein.com/api/ucp/mcp
+- code: -32001
+  message: UCP discovery failed
+  data:
+    code: invalid_profile_url
+    content: 'Unable to fetch agent profile: Missing profile uri'
+    continue_url: https://1f74d5-3d.myshopify.com/
+  trigger: any call missing meta.ucp-agent.profile
+  http_status: 200
+  remediation: >-
+    Supply meta.ucp-agent.profile - a fetchable agent profile URI - on every UCP commerce
+    tool call.
+  observed_on: https://davidprotein.com/api/ucp/mcp
+- code: 429
+  message: rate limited
+  trigger: exceeding the per-IP limit on the MCP endpoint
+  http_status: 429
+  remediation: Back off and retry.
+  source: https://davidprotein.com/agents.md
+  observed: false
+  note: Documented in agents.md; not reproduced on probe and not deliberately triggered.
+gaps:
+- No published error reference. The codes above were reverse-probed, not documented.
+- No RFC 9457 problem+json anywhere on the surface.
+- >-
+  A -32001 leak: the error's continue_url exposes the underlying myshopify.com domain
+  (1f74d5-3d.myshopify.com) rather than davidprotein.com.
+x-evidence:
+  fetched: '2026-08-11'
+  url: https://davidprotein.com/api/ucp/mcp
+  http_status: 200
+  requests: 4
