@@ -1,0 +1,21 @@
+{
+  "repo": "david-protein",
+  "feeds": [
+    {
+      "source": "https://davidprotein.com/pages/frequently-asked-questions",
+      "feed_url": "https://davidprotein.com/pages/frequently-asked-questions",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://davidprotein.com/blogs/the-column",
+      "feed_url": "https://davidprotein.com/blogs/the-column.atom",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-15T12:22:01Z"
+}
