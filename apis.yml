@@ -14,7 +14,7 @@ image: https://davidprotein.com/cdn/shop/files/Group_524_4.png?v=1776707158
 url: https://raw.githubusercontent.com/api-evangelist/david-protein/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-11'
 modified: '2026-08-11'
 x-enrichment:
