@@ -88,6 +88,11 @@ apis:
   baseURL: https://account.davidprotein.com/customer/api/mcp
   tags:
   - MCP
+  - Order
+  - Returns
+  - Authentication
+  tags_raw:
+  - MCP
   - Orders
   - Returns
   - OAuth
@@ -111,6 +116,10 @@ apis:
     storefront origin itself (/products.json returned 200 with 30 products on probe), so
     the origin is the API host. There is no separate api.davidprotein.com.
   tags:
+  - Catalog
+  - Product
+  - JSON
+  tags_raw:
   - Catalog
   - Products
   - JSON
