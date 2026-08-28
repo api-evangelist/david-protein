@@ -10,6 +10,17 @@ description: 'David is a New York nutrition company founded in 2023 by RXBAR co-
   Connect discovery documents, and three live Model Context Protocol servers covering
   catalog search, product lookup, cart, checkout, shop policy Q&A, order status and
   returns.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://davidprotein.com/cdn/shop/files/Group_524_4.png?v=1776707158
 url: https://raw.githubusercontent.com/api-evangelist/david-protein/refs/heads/main/apis.yml
 x-type: company
