@@ -1,15 +1,13 @@
 aid: david-protein
 name: David Protein
-description: 'David is a New York nutrition company founded in 2023 by RXBAR co-founder
-  Peter Rahal, selling high-protein bars (28g protein, 150 calories, 0g sugar), the
-  Bronze and Gold bar lines, and protein ice cream pints direct-to-consumer, through
-  wholesale, and in retail. David runs no developer program and publishes no OpenAPI,
-  but its Shopify-hosted storefront at davidprotein.com serves a complete agent-commerce
-  surface from its own hostnames: an agents.md / llms.txt instruction document, a Universal
-  Commerce Protocol (UCP) merchant profile at /.well-known/ucp, OAuth 2.0 and OpenID
-  Connect discovery documents, and three live Model Context Protocol servers covering
-  catalog search, product lookup, cart, checkout, shop policy Q&A, order status and
-  returns.'
+description: 'David is a New York nutrition company founded in 2023 by RXBAR co-founder Peter Rahal, selling
+  high-protein bars (28g protein, 150 calories, 0g sugar), the Bronze and Gold bar lines, and protein
+  ice cream pints direct-to-consumer, through wholesale, and in retail. David runs no developer program
+  and publishes no OpenAPI, but its Shopify-hosted storefront at davidprotein.com serves a complete agent-commerce
+  surface from its own hostnames: an agents.md / llms.txt instruction document, a Universal Commerce Protocol
+  (UCP) merchant profile at /.well-known/ucp, OAuth 2.0 and OpenID Connect discovery documents, and three
+  live Model Context Protocol servers covering catalog search, product lookup, cart, checkout, shop policy
+  Q&A, order status and returns.'
 deliveryModel:
   model: saas
   open_source: false
@@ -65,14 +63,13 @@ tags:
 - Consumer Packaged Goods
 - Shopify
 apis:
-- aid: david-protein-ucp-commerce-mcp
+- aid: david-protein:david-protein-ucp-commerce-mcp
   name: David Protein UCP Commerce MCP
-  description: 'The Universal Commerce Protocol commerce server David serves at davidprotein.com/api/ucp/mcp,
-    advertised in the store robots.txt and agents.md. Thirteen MCP tools cover catalog
-    search and lookup, product detail, cart create/get/update/cancel, and checkout
-    create/get/update/complete/cancel. tools/list is anonymous and returns full JSON
-    Schema inputSchemas; tools/call requires a signed JWT (AuthenticationRequired,
-    JSON-RPC -32000). complete_checkout accepts a meta.idempotency-key.'
+  description: The Universal Commerce Protocol commerce server David serves at davidprotein.com/api/ucp/mcp,
+    advertised in the store robots.txt and agents.md. Thirteen MCP tools cover catalog search and lookup,
+    product detail, cart create/get/update/cancel, and checkout create/get/update/complete/cancel. tools/list
+    is anonymous and returns full JSON Schema inputSchemas; tools/call requires a signed JWT (AuthenticationRequired,
+    JSON-RPC -32000). complete_checkout accepts a meta.idempotency-key.
   humanURL: https://davidprotein.com/agents.md
   baseURL: https://davidprotein.com/api/ucp/mcp
   tags:
@@ -86,13 +83,13 @@ apis:
     url: mcp/david-protein-mcp.yml
   - type: Documentation
     url: https://davidprotein.com/agents.md
-- aid: david-protein-storefront-mcp
+- aid: david-protein:david-protein-storefront-mcp
   name: David Protein Storefront MCP
-  description: 'The Shopify storefront MCP server David serves at davidprotein.com/api/mcp,
-    declared in the storefront page as window.Shopify.MCP.mcpEndpoint and mirrored
-    into the browser through the WebMCP adapter. Five tools: search_catalog, get_product_details,
-    get_cart, update_cart and search_shop_policies_and_faqs. Both tools/list and tools/call
-    answered anonymously on probe; responses declare the UCP catalog-search capability.'
+  description: 'The Shopify storefront MCP server David serves at davidprotein.com/api/mcp, declared in
+    the storefront page as window.Shopify.MCP.mcpEndpoint and mirrored into the browser through the WebMCP
+    adapter. Five tools: search_catalog, get_product_details, get_cart, update_cart and search_shop_policies_and_faqs.
+    Both tools/list and tools/call answered anonymously on probe; responses declare the UCP catalog-search
+    capability.'
   humanURL: https://davidprotein.com/agents.md
   baseURL: https://davidprotein.com/api/mcp
   tags:
@@ -103,13 +100,12 @@ apis:
   properties:
   - type: MCPServer
     url: mcp/david-protein-mcp.yml
-- aid: david-protein-customer-account-mcp
+- aid: david-protein:david-protein-customer-account-mcp
   name: David Protein Customer Account MCP
   description: 'The customer-account MCP server David serves at account.davidprotein.com/customer/api/mcp.
-    Four tools: get_most_recent_order_status, get_order_status, get_store_credit_balances
-    and request_return. tools/list is anonymous; the tools operate on a logged-in customer
-    and require an OAuth 2.0 bearer token from the authorization server advertised
-    at davidprotein.com/.well-known/oauth-protected-resource.'
+    Four tools: get_most_recent_order_status, get_order_status, get_store_credit_balances and request_return.
+    tools/list is anonymous; the tools operate on a logged-in customer and require an OAuth 2.0 bearer
+    token from the authorization server advertised at davidprotein.com/.well-known/oauth-protected-resource.'
   humanURL: https://davidprotein.com/agents.md
   baseURL: https://account.davidprotein.com/customer/api/mcp
   tags:
@@ -127,20 +123,18 @@ apis:
     url: mcp/david-protein-mcp.yml
   - type: Authentication
     url: authentication/david-protein-authentication.yml
-- aid: david-protein-storefront-json
+- aid: david-protein:david-protein-storefront-json
   name: David Protein Storefront JSON
-  description: 'The unauthenticated read-only JSON surface David documents in agents.md
-    for agents that only need to browse: /products.json and /collections.json store-wide,
-    /products/{handle}.json per product, /collections/{handle}/products.json per collection,
-    and /search?q={query}&type=product. Thirty products were returned on probe. No
-    OpenAPI describes it; the contract is the agents.md endpoint list.'
+  description: 'The unauthenticated read-only JSON surface David documents in agents.md for agents that
+    only need to browse: /products.json and /collections.json store-wide, /products/{handle}.json per
+    product, /collections/{handle}/products.json per collection, and /search?q={query}&type=product. Thirty
+    products were returned on probe. No OpenAPI describes it; the contract is the agents.md endpoint list.'
   humanURL: https://davidprotein.com/agents.md
   baseURL: https://davidprotein.com
-  x-base-note: >-
-    repair-api-bases flags this baseURL as a marketing base because it is the site root.
-    It is correct as written and was left alone: David serves these JSON paths from the
-    storefront origin itself (/products.json returned 200 with 30 products on probe), so
-    the origin is the API host. There is no separate api.davidprotein.com.
+  x-base-note: 'repair-api-bases flags this baseURL as a marketing base because it is the site root. It
+    is correct as written and was left alone: David serves these JSON paths from the storefront origin
+    itself (/products.json returned 200 with 30 products on probe), so the origin is the API host. There
+    is no separate api.davidprotein.com.'
   tags:
   - Catalog
   - Product
