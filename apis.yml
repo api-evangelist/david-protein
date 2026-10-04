@@ -83,6 +83,9 @@ apis:
     url: mcp/david-protein-mcp.yml
   - type: Documentation
     url: https://davidprotein.com/agents.md
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 - aid: david-protein:david-protein-storefront-mcp
   name: David Protein Storefront MCP
   description: 'The Shopify storefront MCP server David serves at davidprotein.com/api/mcp, declared in
@@ -100,6 +103,9 @@ apis:
   properties:
   - type: MCPServer
     url: mcp/david-protein-mcp.yml
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: storefront-mcp
 - aid: david-protein:david-protein-customer-account-mcp
   name: David Protein Customer Account MCP
   description: 'The customer-account MCP server David serves at account.davidprotein.com/customer/api/mcp.
@@ -123,6 +129,9 @@ apis:
     url: mcp/david-protein-mcp.yml
   - type: Authentication
     url: authentication/david-protein-authentication.yml
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: customer-account-mcp
 - aid: david-protein:david-protein-storefront-json
   name: David Protein Storefront JSON
   description: 'The unauthenticated read-only JSON surface David documents in agents.md for agents that
@@ -130,7 +139,6 @@ apis:
     product, /collections/{handle}/products.json per collection, and /search?q={query}&type=product. Thirty
     products were returned on probe. No OpenAPI describes it; the contract is the agents.md endpoint list.'
   humanURL: https://davidprotein.com/agents.md
-  baseURL: https://davidprotein.com
   x-base-note: 'repair-api-bases flags this baseURL as a marketing base because it is the site root. It
     is correct as written and was left alone: David serves these JSON paths from the storefront origin
     itself (/products.json returned 200 with 30 products on probe), so the origin is the API host. There
@@ -146,6 +154,9 @@ apis:
   properties:
   - type: Documentation
     url: https://davidprotein.com/agents.md
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: storefront-json
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
