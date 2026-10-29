@@ -64,5 +64,119 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-David Protein is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/david-protein-stock
+David is a New York nutrition company founded in 2023 by RXBAR co-founder Peter Rahal, selling high-protein bars (28g protein, 150 calories, 0g sugar), the Bronze and Gold bar lines, and protein ice cream pints direct-to-consumer, through wholesale, and in retail. David runs no developer program and publishes no OpenAPI, but its Shopify-hosted storefront at davidprotein.com serves a complete agent-commerce surface from its own hostnames: an agents.md / llms.txt instruction document, a Universal Commerce Protocol (UCP) merchant profile at /.well-known/ucp, OAuth 2.0 and OpenID Connect discovery documents, and three live Model Context Protocol servers covering catalog search, product lookup, cart, checkout, shop policy Q&A, order status and returns.
+
+**Areas:** Agents · MCP · Universal Commerce Protocol · Commerce · E-Commerce · Shopping · Catalog · Checkout · Nutrition · Food and Beverage · Consumer Packaged Goods · Shopify
+
+## David Protein on APIs.io
+
+Everything profiled for David Protein is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/david-protein/](https://apis.io/providers/david-protein/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [David Protein UCP Commerce MCP](https://apis.io/apis/david-protein/david-protein-ucp-commerce-mcp/) — The Universal Commerce Protocol commerce server David serves at davidprotein.com/api/ucp/mcp, advertised in the store robots.txt and agents.md. Thirteen MCP…
+- [David Protein Storefront MCP](https://apis.io/apis/david-protein/david-protein-storefront-mcp/) — The Shopify storefront MCP server David serves at davidprotein.com/api/mcp, declared in the storefront page as window.Shopify.MCP.mcpEndpoint and mirrored…
+- [David Protein Customer Account MCP](https://apis.io/apis/david-protein/david-protein-customer-account-mcp/) — The customer-account MCP server David serves at account.davidprotein.com/customer/api/mcp. Four tools: get_most_recent_order_status, get_order_status,…
+- [David Protein Storefront JSON](https://apis.io/apis/david-protein/david-protein-storefront-json/) — The unauthenticated read-only JSON surface David documents in agents.md for agents that only need to browse: /products.json and /collections.json…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [david-protein-mcp.yml](https://apis.io/servers/david-protein/david-protein-mcp-yml/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [David Protein Authentication](https://apis.io/security/david-protein/david-protein-authentication/)
+- [David Protein Domain Security](https://apis.io/security/david-protein/david-protein-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [David Protein Scopes](https://apis.io/scopes/david-protein/david-protein-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [David Protein Plans Pricing](https://apis.io/plans/david-protein/david-protein-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [David Protein Rate Limits](https://apis.io/rate-limits/david-protein/david-protein-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://davidprotein.com)
+- [Documentation](https://davidprotein.com/agents.md)
+- [Getting started](https://davidprotein.com/agents.md)
+- [Pricing](https://davidprotein.com/collections/shop)
+- [Sign up](https://davidprotein.com/account/login)
+- [Support](https://davidprotein.com/pages/help-center)
+- [Blog](https://davidprotein.com/blogs/the-column)
+- [Terms of service](https://davidprotein.com/policies/terms-of-service)
+- [Privacy policy](https://davidprotein.com/policies/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 29.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 46.9 |
+| Access clarity | 44.7 |
+
+**Agent readiness 29.3** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | unknown |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | platform (partial credit) |
+
+**Regulatory alignment 31.3** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/david-protein/](https://apis.io/providers/david-protein/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for David Protein: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/david-protein/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
